@@ -1,4 +1,4 @@
-![Quality Assurance Platform](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/qap.png)
+![Quality Assuracen Platform](https://qualitysphere.github.io/images/qap.png)
 
 # Quality Sphere
 
@@ -12,17 +12,17 @@
 [![python](https://img.shields.io/static/v1?style=for-the-badge&logo=python&label=Python&message=3.7&color=3776AB)](https://www.python.org)
 ![flask](https://img.shields.io/static/v1?style=for-the-badge&logo=Flask&label=flask&message=1.1.1&color=000000)
 [![vue](https://img.shields.io/static/v1?style=for-the-badge&logo=Vue.js&label=Vue.js&message=2.6.11&color=4FC08D)](https://vuejs.org)
-[![element](https://img.shields.io/static/v1?style=for-the-badge&logo=css3&label=element&message=2.13.0&color=579EF8)](https://element.eleme.cn/#/en-US/component/icon)
-[![grafana](https://img.shields.io/static/v1?style=for-the-badge&logo=Grafana&label=grafana&message=6.3.6&color=F46800)]()
-[![postgresql](https://img.shields.io/static/v1?style=for-the-badge&logo=PostgresQL&label=postgresql&message=10&color=336791)]()
+[![element](https://img.shields.io/static/v1?style=for-the-badge&logo=css3&label=element&message=2.13.0&color=579EF8)](https://element.eleme.cn)
+[![grafana](https://img.shields.io/static/v1?style=for-the-badge&logo=Grafana&label=grafana&message=6.3.6&color=F46800)](https://grafana.com)
+[![postgresql](https://img.shields.io/static/v1?style=for-the-badge&logo=PostgresQL&label=postgresql&message=10&color=336791)](https://www.postgresql.org)
 [![docker](https://img.shields.io/static/v1?style=for-the-badge&logo=docker&label=docker&message=bxwill/qsphere&color=2496ED)](https://hub.docker.com/r/bxwill/qsphere)
 
 ## Preview
 
-![Tracker](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/tracker.png)
-![Project](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/project.png)
-![Sprint](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/sprint.png)
-![Dashboard](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/dashboard.png)
+![Tracker](https://qualitysphere.github.io/images/tracker.png)
+![Project](https://qualitysphere.github.io/images/project.png)
+![Sprint](https://qualitysphere.github.io/images/sprint.png)
+![Dashboard](https://qualitysphere.github.io/images/dashboard.png)
 
 ## Vision
 
@@ -34,11 +34,11 @@
 
 #### Component
 
-![Framework](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/framework.svg)
+![Framework](https://qualitysphere.github.io/images/framework.svg)
 
 #### Database
 
-![Database](https://raw.githubusercontent.com/QualitySphere/qsphere/master/docs/database.svg)
+![Database](https://qualitysphere.github.io/images/database.svg)
 
 ## API Document
 
@@ -81,9 +81,9 @@ services:
       PG_PASSWORD: 'password'
     depends_on:
       - qsphere-db
-  qsphere-grafana:
-    container_name: qsphere-grafana
-    image: bxwill/qsphere:grafana-latest
+  qsphere-dashboard:
+    container_name: qsphere-dashboard
+    image: bxwill/qsphere:dashboard-latest
     restart: always
     ports:
       - 3000:3000
@@ -104,46 +104,21 @@ services:
       - 8080:80
     depends_on:
       - qsphere-svc
-      - qsphere-grafana
+      - qsphere-dashboard
 ```
 
-#### Config QSphere
-
-- Bind tracker
-- Add project
-- Add sprint
-
-#### Check data graph
+#### [Quick Start](https://qualitysphere.github.io/usage)
 
 ## Changelog
 
-- 1.0.0 - `2020-06-01`
-  - UI rewrite
-  - Change database models
-  - Improve service API data
-  - Data graph change to project/sprint
-  - Add Portal menu
-  - Remove VM online check function
-
-- 0.9.0 - `2019-12-31`
-  - Enhance UI
-
-- 0.2.0 - `2019-10-23`
-  - Support to update JIRA connection info
-  - Support to update Sprint info
-  - Support to disable/active Sprint
-  - Support to VM online check
-
-- 0.1.0 - `2019-10-14`
-  - Get and analyze JIRA data, show graph via Grafana
-  - Support JIRA
-  - Support to add Project/Sprint
-  - Support data graph 
-  - Support API swagger
+- [QSphere-svc](https://github.com/QualitySphere/qsphere-svc/releases)
+- [QSphere-ui](https://github.com/QualitySphere/qsphere-ui/releases)
+- [QSphere-dashboard](https://github.com/QualitySphere/qsphere-dashboard/releases)
+- [Changelog Details](https://QualitySphere.github.io/change)
 
 ## More
 
 - Homepage: https://QualitySphere.github.io
-- GitHub: https://github.com/QualitySphere/qsphere
+- GitHub: https://github.com/QualitySphere
 - Docker: https://hub.docker.com/r/bxwill/qsphere
 

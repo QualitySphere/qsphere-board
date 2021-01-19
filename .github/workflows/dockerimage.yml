@@ -5,6 +5,7 @@ on:
 
 env:
   IMG: bxwill/qsphere
+  ALI_REGISTRY: registry.ch-hangzhou.aliyuncs.com
   TAG_PREFIX: board
   CODE_ROOT: grafana
 

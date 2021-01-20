@@ -35,7 +35,7 @@
 
 ## More
 
-- Web Site: https://QualitySphere.github.io
+- Homepage: https://QualitySphere.github.io
 - GitHub: https://github.com/QualitySphere
 - Docker: https://hub.docker.com/r/bxwill/qsphere
 

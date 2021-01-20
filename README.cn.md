@@ -35,7 +35,7 @@
 
 ## 更多信息
 
-- 网址: https://QualitySphere.github.io
+- 主页: https://QualitySphere.github.io
 - GitHub: https://github.com/QualitySphere
 - Docker: https://hub.docker.com/r/bxwill/qsphere
 

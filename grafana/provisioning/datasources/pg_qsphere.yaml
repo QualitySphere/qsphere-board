@@ -8,13 +8,13 @@ datasources:
     type: postgres
     access: proxy
     orgId: 1
-    url: ${PG_SERVER}:${PG_PORT}
+    url: ${PG_HOST}:${PG_PORT}
     user: ${PG_USER}
-    database: ${PG_DB}
+    database: ${PG_NAME}
     jsonData:
       postgresVersion: 1000
       sslmode: disable
     secureJsonData:
-      password: ${PG_PASSWORD}
+      password: ${PG_PASS}
     version: 1
     editable: true

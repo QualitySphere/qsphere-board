@@ -11,5 +11,8 @@ ENV GF_AUTH_PROXY_ENABLED=true \
 
 COPY provisioning/datasources ./datasources
 COPY provisioning/dashboards ./dashboards
+COPY health_check.sh /health_check.sh
 
 EXPOSE 3000
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 CMD /health_check.sh

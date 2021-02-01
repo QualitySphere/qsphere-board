@@ -95,7 +95,7 @@
               }
             ]
           ],
-          "table": "issue_project",
+          "table": "issue_overview",
           "timeColumn": "capture_time",
           "timeColumnType": "timestamp",
           "where": [
@@ -487,7 +487,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "QSphere Project",
-  "uid": "qsphere-project",
+  "title": "QSphere Overview",
+  "uid": "qsphere-overview",
   "version": 1
 }

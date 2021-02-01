@@ -291,7 +291,7 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "SELECT project.name FROM project WHERE project.status != 'delete'",
+        "definition": "List Project",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -318,7 +318,7 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "SELECT sprint.name FROM sprint INNER JOIN project ON sprint.project = project.uuid WHERE project.name = '$PROJECT' AND sprint.status != 'delete' ORDER BY 1 DESC;",
+        "definition": "List Sprint",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -344,7 +344,7 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "List requirement",
+        "definition": "List Requirement",
         "hide": 0,
         "includeAll": false,
         "label": null,

@@ -31,7 +31,7 @@
       "id": 13,
       "panels": [],
       "repeat": null,
-      "title": "Sprint [$SPRINT] ( $START_DATE ~ $END_DATE )",
+      "title": "Sprint [$sprint_name] ( $start_date ~ $end_date )",
       "type": "row"
     },
     {
@@ -89,7 +89,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_sprint_level.capture_time AS \"time\", CAST(issue_capture_sprint_level.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' AND sprint.status != 'delete' ORDER BY 1",
+          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -115,7 +115,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_sprint_level.capture_time AS \"time\", CAST(issue_capture_sprint_level.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' AND sprint.status != 'delete' ORDER BY 1",
+          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixed' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -141,7 +141,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_sprint_level.capture_time AS \"time\", CAST(issue_capture_sprint_level.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' AND sprint.status != 'delete' ORDER BY 1",
+          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixing' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -167,7 +167,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$SPRINT] Bug Verification",
+      "title": "[$sprint_name] Bug Verification",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -262,7 +262,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -288,7 +288,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -314,7 +314,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -340,7 +340,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -366,7 +366,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$SPRINT] Bug Categories",
+      "title": "[$sprint_name] Bug Categories",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -457,7 +457,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", key, value FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 2",
+          "rawSql": "SELECT icss.capture_time AS \"time\", key, value FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -483,7 +483,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$SPRINT] Bug Found In RC",
+      "title": "[$sprint_name] Bug Found In RC",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -573,7 +573,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", improve AS \"Regression Improve\", newfeature AS \"New Feature\", qamissed AS \"QA Missed\", others AS \"Others\" FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint , jsonb_to_record(found_since) AS x(improve int, newfeature int, qamissed int, others int) WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
+          "rawSql": "SELECT icss.capture_time AS \"time\", improve AS \"Regression Improve\", newfeature AS \"New Feature\", qamissed AS \"QA Missed\", others AS \"Others\" FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint , jsonb_to_record(found_since) AS x(improve int, newfeature int, qamissed int, others int) WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -601,7 +601,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$SPRINT] Bug Found Since",
+      "title": "[$sprint_name] Bug Found Since",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -694,7 +694,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", key, value FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 2",
+          "rawSql": "SELECT icss.capture_time AS \"time\", key, value FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -720,7 +720,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$SPRINT] New Feature Status",
+      "title": "[$sprint_name] New Feature Status",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -771,7 +771,7 @@
       },
       "id": 15,
       "panels": [],
-      "title": "Requirement [$REQUIREMENT]",
+      "title": "Requirement [$requirement]",
       "type": "row"
     },
     {
@@ -826,7 +826,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_req.capture_time AS \"time\", CAST(issue_req.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_req INNER JOIN sprint ON sprint.uuid = issue_req.sprint INNER JOIN project ON project.uuid = sprint.project WHERE issue_req.name = '$REQUIREMENT' AND sprint.name = '$SPRINT' AND project.name = '$PROJECT' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -852,7 +852,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_req.capture_time AS \"time\", CAST(issue_req.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_req INNER JOIN sprint ON sprint.uuid = issue_req.sprint INNER JOIN project ON project.uuid = sprint.project WHERE issue_req.name = '$REQUIREMENT' AND sprint.name = '$SPRINT' AND project.name = '$PROJECT' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -878,7 +878,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_req.capture_time AS \"time\", CAST(issue_req.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_req INNER JOIN sprint ON sprint.uuid = issue_req.sprint INNER JOIN project ON project.uuid = sprint.project WHERE issue_req.name = '$REQUIREMENT' AND sprint.name = '$SPRINT' AND project.name = '$PROJECT' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -904,7 +904,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$REQUIREMENT] Bug Verification",
+      "title": "[$requirement] Bug Verification",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -966,7 +966,7 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "PROJECT_UUID",
+        "name": "project",
         "options": [],
         "query": "SELECT project.uuid FROM project WHERE project.status != 'delete' ORDER BY 1",
         "refresh": 1,
@@ -988,14 +988,14 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "List Project Name",
+        "definition": "Get Project Name",
         "hide": 0,
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "PROJECT",
+        "name": "project_name",
         "options": [],
-        "query": "SELECT project.name FROM project WHERE project.uuid = '$PROJECT_UUID' ORDER BY 1",
+        "query": "SELECT project.name FROM project WHERE project.uuid = '$project' ORDER BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1020,9 +1020,9 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "SPRINT_UUID",
+        "name": "sprint",
         "options": [],
-        "query": "SELECT sprint.uuid FROM sprint INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$PROJECT_UUID' AND sprint.status != 'delete' ORDER BY 1 DESC",
+        "query": "SELECT sprint.uuid FROM sprint INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$project' AND sprint.status != 'delete' ORDER BY 1 DESC",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1042,14 +1042,14 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "List Sprint UUID",
+        "definition": "Get Sprint Name",
         "hide": 0,
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "SPRINT",
+        "name": "sprint_name",
         "options": [],
-        "query": "SELECT sprint.name FROM sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
+        "query": "SELECT sprint.name FROM sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1073,9 +1073,9 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "REQUIREMENT",
+        "name": "requirement",
         "options": [],
-        "query": "SELECT unnest(value) FROM issue_config INNER JOIN sprint ON sprint.issue_config = issue_config.uuid, jsonb_to_record(requirement) AS x(value text[]) WHERE sprint.uuid = '$SPRINT_UUID' GROUP BY 1",
+        "query": "SELECT UNNEST(value) FROM issue_config INNER JOIN sprint ON sprint.issue_config = issue_config.uuid, jsonb_to_record(requirement) AS x(value text[]) WHERE sprint.uuid = '$sprint' GROUP BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1098,9 +1098,9 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "START_DATE",
+        "name": "start_date",
         "options": [],
-        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1 LIMIT 1",
+        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1 LIMIT 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1123,9 +1123,9 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "END_DATE",
+        "name": "end_date",
         "options": [],
-        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1 DESC LIMIT 1",
+        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1 DESC LIMIT 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

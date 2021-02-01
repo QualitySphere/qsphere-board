@@ -262,7 +262,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.categories::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' AND sprint.status != 'delete' ORDER BY 1",
+          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -288,7 +288,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.categories::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 1",
+          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -314,7 +314,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.categories::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 1",
+          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -340,7 +340,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.categories::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 1",
+          "rawSql": "SELECT $__time(issue_capture_sprint_level.capture_time), CAST(issue_capture_sprint_level.category::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -457,7 +457,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", issue_capture_static_sprint.rc, issue_sprint_latest.count FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint INNER JOIN project ON project.uuid = sprint.project WHERE sprint.name = '$SPRINT' AND sprint.status != 'delete' AND project.name = '$PROJECT' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", key, value FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -573,7 +573,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_sprint_level.capture_time AS \"time\", CAST(issue_capture_sprint_level.found_since::json->>'regressionimprove' AS integer)AS \"Regression Improve\", CAST(issue_capture_sprint_level.found_since::json->>'newfeature' AS integer)AS \"New Feature\", CAST(issue_capture_sprint_level.found_since::json->>'qamissed' AS integer) AS \"QA Missed\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE sprint.name = '$SPRINT' AND project.name = '$PROJECT' ORDER BY 1 DESC LIMIT 1",
+          "rawSql": "SELECT issue_capture_sprint_level.capture_time AS \"time\", CAST(issue_capture_sprint_level.found_since::json->>'regressionimprove' AS integer) AS \"Regression Improve\", CAST(issue_capture_sprint_level.found_since::json->>'newfeature' AS integer)AS \"New Feature\", CAST(issue_capture_sprint_level.found_since::json->>'qamissed' AS integer) AS \"QA Missed\" FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint INNER JOIN project ON project.uuid = sprint.project WHERE sprint.name = '$SPRINT' AND project.name = '$PROJECT' ORDER BY 1 DESC LIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -585,7 +585,7 @@
               }
             ]
           ],
-          "table": "issue_project",
+          "table": "issue_sprint",
           "timeColumn": "capture_time",
           "timeColumnType": "timestamp",
           "where": [
@@ -961,14 +961,14 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "List Project",
+        "definition": "List Project UUID",
         "hide": 0,
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "PROJECT",
+        "name": "PROJECT_UUID",
         "options": [],
-        "query": "SELECT project.name FROM project WHERE project.status != 'delete' ORDER BY 1",
+        "query": "SELECT project.uuid FROM project WHERE project.status != 'delete' ORDER BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -988,14 +988,68 @@
           "value": ""
         },
         "datasource": "qsphere",
-        "definition": "List Sprint",
+        "definition": "List Project Name",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "PROJECT",
+        "options": [],
+        "query": "SELECT project.name FROM project WHERE project.uuid = '$PROJECT_UUID' ORDER BY 1",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allFormat": "glob",
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "",
+          "value": ""
+        },
+        "datasource": "qsphere",
+        "definition": "List Sprint UUID",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "SPRINT_UUID",
+        "options": [],
+        "query": "SELECT sprint.uuid FROM sprint INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$PROJECT_UUID' AND sprint.status != 'delete' ORDER BY 1 DESC",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allFormat": "glob",
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "",
+          "value": ""
+        },
+        "datasource": "qsphere",
+        "definition": "List Sprint UUID",
         "hide": 0,
         "includeAll": false,
         "label": null,
         "multi": false,
         "name": "SPRINT",
         "options": [],
-        "query": "SELECT sprint.name FROM sprint INNER JOIN project ON sprint.project = project.uuid WHERE project.name = '$PROJECT' AND sprint.status != 'delete' ORDER BY 1 DESC;",
+        "query": "SELECT sprint.name FROM sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1021,7 +1075,7 @@
         "multi": false,
         "name": "REQUIREMENT",
         "options": [],
-        "query": "SELECT issue_capture_req_level.name FROM issue_capture_req_level INNER JOIN sprint ON sprint.uuid = issue_capture_req_level.sprint WHERE sprint.name = '$SPRINT' AND sprint.status != 'delete';",
+        "query": "SELECT unnest(value) FROM issue_config INNER JOIN sprint ON sprint.issue_config = issue_config.uuid, jsonb_to_record(requirement) AS x(value text[]) WHERE sprint.uuid = '$SPRINT_UUID' GROUP BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1046,7 +1100,7 @@
         "multi": false,
         "name": "START_DATE",
         "options": [],
-        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.name = '$SPRINT' AND sprint.status != 'delete' order by 1 limit 1",
+        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1 LIMIT 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1071,7 +1125,7 @@
         "multi": false,
         "name": "END_DATE",
         "options": [],
-        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.name = '$SPRINT' AND sprint.status != 'delete' order by 1 DESC limit 1",
+        "query": "SELECT to_char(capture_time, 'YYYY-MM-DD') FROM issue_capture_sprint_level INNER JOIN sprint ON sprint.uuid = issue_capture_sprint_level.sprint WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 1 DESC LIMIT 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

@@ -115,7 +115,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixed' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -141,7 +141,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixing' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -457,7 +457,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icss.capture_time AS \"time\", key, value FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$sprint' ORDER BY 2",
+          "rawSql": "SELECT icss.capture_time AS \"time\", key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -694,7 +694,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icss.capture_time AS \"time\", key, value FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$sprint' ORDER BY 2",
+          "rawSql": "SELECT icss.capture_time AS \"time\", key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [

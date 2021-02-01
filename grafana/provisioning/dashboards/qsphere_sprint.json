@@ -694,7 +694,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_req_latest.capture_time AS \"time\", issue_req_latest.name, CAST(issue_req_latest.status::json->>'total' AS integer) FROM issue_req_latest INNER JOIN sprint ON sprint.uuid = issue_req_latest.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.name = '$PROJECT' AND sprint.name = '$SPRINT' ORDER BY 3 DESC",
+          "rawSql": "SELECT issue_capture_static_sprint.capture_time AS \"time\", key, value FROM issue_capture_static_sprint INNER JOIN sprint ON sprint.uuid = issue_capture_static_sprint.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$SPRINT_UUID' ORDER BY 2",
           "refId": "A",
           "select": [
             [

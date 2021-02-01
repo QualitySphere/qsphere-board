@@ -83,7 +83,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name AS \"Project\", cast(issue_capture_static_overview.in_release::json->>'total' AS integer) FROM issue_capture_static_overview INNER JOIN project ON issue_capture_static_overview.project = project.uuid WHERE project.status != 'delete' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name AS \"Project\", CAST(issue_capture_static_overview.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_overview INNER JOIN project ON issue_capture_static_overview.project = project.uuid WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -206,7 +206,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name, issue_capture_static_overview.from_customer::json->>'total' FROM issue_capture_static_overview INNER JOIN project ON project.uuid = issue_capture_static_overview.project WHERE project.status != 'delete' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name AS \"Project\", CAST(issue_capture_static_overview.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_overview INNER JOIN project ON project.uuid = issue_capture_static_overview.project WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [

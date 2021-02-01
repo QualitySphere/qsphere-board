@@ -30,7 +30,7 @@
       },
       "id": 11,
       "panels": [],
-      "title": "Project $PROJECT",
+      "title": "Project [$PROJECT]",
       "type": "row"
     },
     {
@@ -83,7 +83,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name AS \"Sprint\", cast(issue_capture_static_project.in_release::json->>'total' AS integer) FROM issue_capture_static_project INNER JOIN sprint ON issue_capture_static_project.sprint = sprint.uuid INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name AS \"Sprint\", CAST(issue_capture_static_project.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_project INNER JOIN sprint ON issue_capture_static_project.sprint = sprint.uuid INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -206,7 +206,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name, issue_capture_static_project.from_customer::json->>'total' FROM issue_capture_static_project INNER JOIN sprint ON sprint.uuid = issue_capture_static_project.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name AS \"Sprint\", CAST(issue_capture_static_project.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_project INNER JOIN sprint ON sprint.uuid = issue_capture_static_project.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
           "refId": "A",
           "select": [
             [

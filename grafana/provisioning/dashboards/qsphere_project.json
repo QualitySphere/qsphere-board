@@ -405,7 +405,7 @@
         "multi": false,
         "name": "REQUIREMENT",
         "options": [],
-        "query": "SELECT issue_capture_req_level.name FROM issue_capture_req_level INNER JOIN sprint ON sprint.uuid = issue_capture_req_level.sprint WHERE sprint.uuid = '$SPRINT_UUID'",
+        "query": "SELECT unnest(value) FROM issue_config INNER JOIN sprint ON sprint.issue_config = issue_config.uuid, jsonb_to_record(requirement) AS x(value text[]) WHERE sprint.uuid = '$SPRINT_UUID' GROUP BY 1",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

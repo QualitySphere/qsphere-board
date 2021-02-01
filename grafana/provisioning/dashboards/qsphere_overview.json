@@ -30,7 +30,7 @@
       },
       "id": 11,
       "panels": [],
-      "title": "Project $PROJECT",
+      "title": "",
       "type": "row"
     },
     {
@@ -83,7 +83,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name AS \"Sprint\", cast(issue_capture_static_project.in_release::json->>'total' AS integer) FROM issue_capture_static_project INNER JOIN sprint ON issue_capture_static_project.sprint = sprint.uuid INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name AS \"Project\", cast(issue_capture_static_overview.in_release::json->>'total' AS integer) FROM issue_capture_static_overview INNER JOIN project ON issue_capture_static_overview.project = project.uuid WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -111,7 +111,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$PROJECT] Bug In Release Testing",
+      "title": "Bug In Release Testing",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -206,7 +206,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT issue_capture_static_project.capture_time AS \"time\", sprint.name, issue_capture_static_project.from_customer::json->>'total' FROM issue_capture_static_project INNER JOIN sprint ON sprint.uuid = issue_capture_static_project.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.uuid = '$PROJECT_UUID' ORDER BY 2",
+          "rawSql": "SELECT issue_capture_static_overview.capture_time AS \"time\", project.name, issue_capture_static_overview.from_customer::json->>'total' FROM issue_capture_static_overview INNER JOIN project ON project.uuid = issue_static_overview.project WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -232,7 +232,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "[$PROJECT] Bug From Customer",
+      "title": "Bug From Customer",
       "tooltip": {
         "shared": false,
         "sort": 0,

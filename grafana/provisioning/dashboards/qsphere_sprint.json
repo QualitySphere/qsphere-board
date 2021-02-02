@@ -826,7 +826,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -852,7 +852,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -878,7 +878,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_req_level icrl WHERE icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "C",
           "select": [
             [

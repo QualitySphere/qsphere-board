@@ -1,4 +1,4 @@
-![Quality Assuracen Platform](https://qualitysphere.github.io/images/qap.png)
+![Quality Assurance Platform](https://qualitysphere.github.io/images/qap.png)
 
 # Quality Sphere
 
@@ -27,11 +27,11 @@
 
 #### 安装部署/升级 QSphere
 
-[QSphere 部署](https://qualitysphere.github.io/deploy/)
+[QSphere 部署](https://qualitysphere.github.io/1_deploy/)
 
 #### 指南
 
-[QSphere 快速手册](https://qualitysphere.github.io/usage/)
+[QSphere 快速手册](https://qualitysphere.github.io/1_usage/)
 
 ## 更多信息
 

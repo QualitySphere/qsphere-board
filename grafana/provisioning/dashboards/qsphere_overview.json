@@ -83,7 +83,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icso.capture_time AS \"time\", project.name AS \"Project\", CAST(icso.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_overview icso INNER JOIN project ON icso.project = project.uuid WHERE project.status != 'delete' ORDER BY 2",
+          "rawSql": "SELECT $__time(icso.capture_time::timestamp + '-8 hour'), project.name AS \"Project\", CAST(icso.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_overview icso INNER JOIN project ON icso.project = project.uuid WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -206,7 +206,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icso.capture_time AS \"time\", project.name AS \"Project\", CAST(icso.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_overview icso INNER JOIN project ON project.uuid = icso.project WHERE project.status != 'delete' ORDER BY 2",
+          "rawSql": "SELECT $__time(icso.capture_time::timestamp + '-8 hour'), project.name AS \"Project\", CAST(icso.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_overview icso INNER JOIN project ON project.uuid = icso.project WHERE project.status != 'delete' ORDER BY 2",
           "refId": "A",
           "select": [
             [

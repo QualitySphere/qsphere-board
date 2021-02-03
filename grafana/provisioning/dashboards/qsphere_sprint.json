@@ -89,7 +89,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -115,7 +115,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -141,7 +141,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsl.capture_time AS \"time\", CAST(icsl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -262,7 +262,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.category::json->>'newfeature' AS integer) AS \"New Feature\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -288,7 +288,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.category::json->>'previous' AS integer) AS \"Previous\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -314,7 +314,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.category::json->>'regression' AS integer) AS \"Regression\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -340,7 +340,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT $__time(icsl.capture_time), CAST(icsl.category::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icsl.capture_time::timestamp + '-8 hour'), CAST(icsl.category::json->>'others' AS integer) AS \"Others\" FROM issue_capture_sprint_level icsl INNER JOIN sprint ON sprint.uuid = icsl.sprint WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "D",
           "select": [
             [
@@ -457,7 +457,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icss.capture_time AS \"time\", key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$sprint' ORDER BY 2",
+          "rawSql": "SELECT $__time(icss.capture_time::timestamp + '-8 hour'), key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_rc) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -573,7 +573,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icss.capture_time AS \"time\", improve AS \"Regression Improve\", newfeature AS \"New Feature\", qamissed AS \"QA Missed\", others AS \"Others\" FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint , jsonb_to_record(found_since) AS x(improve int, newfeature int, qamissed int, others int) WHERE sprint.uuid = '$sprint' ORDER BY 1",
+          "rawSql": "SELECT $__time(icss.capture_time::timestamp + '-8 hour'), improve AS \"Regression Improve\", newfeature AS \"New Feature\", qamissed AS \"QA Missed\", others AS \"Others\" FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint , jsonb_to_record(found_since) AS x(improve int, newfeature int, qamissed int, others int) WHERE sprint.uuid = '$sprint' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -694,7 +694,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icss.capture_time AS \"time\", key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$sprint' ORDER BY 2",
+          "rawSql": "SELECT $__time(icss.capture_time::timestamp + '-8 hour'), key, CAST(text(value) AS INTEGER) FROM issue_capture_static_sprint icss INNER JOIN sprint ON sprint.uuid = icss.sprint, jsonb_each(in_req) WHERE sprint.uuid = '$sprint' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -826,7 +826,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT $__time(icrl.capture_time::timestamp + '-8 hour'), CAST(icrl.status::json->>'verified' AS integer) AS \"Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -852,7 +852,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT $__time(icrl.capture_time::timestamp + '-8 hour'), CAST(icrl.status::json->>'fixed' AS integer) AS \"To Be Verified\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -878,7 +878,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icrl.capture_time AS \"time\", CAST(icrl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
+          "rawSql": "SELECT $__time(icrl.capture_time::timestamp + '-8 hour'), CAST(icrl.status::json->>'fixing' AS integer) AS \"To Be Fixed\" FROM issue_capture_req_level icrl INNER JOIN sprint ON sprint.uuid = icrl.sprint WHERE sprint.uuid = '$sprint' AND icrl.name = '$requirement' ORDER BY 1",
           "refId": "C",
           "select": [
             [

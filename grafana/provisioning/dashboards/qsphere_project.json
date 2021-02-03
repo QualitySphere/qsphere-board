@@ -83,7 +83,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsp.capture_time AS \"time\", sprint.name AS \"Sprint\", CAST(icsp.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_project icsp INNER JOIN sprint ON icsp.sprint = sprint.uuid INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$project' ORDER BY 2",
+          "rawSql": "SELECT $__time(icsp.capture_time::timestamp + '-8 hour'), sprint.name AS \"Sprint\", CAST(icsp.in_release::json->>'total' AS INTEGER) FROM issue_capture_static_project icsp INNER JOIN sprint ON icsp.sprint = sprint.uuid INNER JOIN project ON sprint.project = project.uuid WHERE project.uuid = '$project' ORDER BY 2",
           "refId": "A",
           "select": [
             [
@@ -206,7 +206,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT icsp.capture_time AS \"time\", sprint.name AS \"Sprint\", CAST(icsp.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_project icsp INNER JOIN sprint ON sprint.uuid = icsp.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.uuid = '$project' ORDER BY 2",
+          "rawSql": "SELECT $__time(icsp.capture_time::timestamp + '-8 hour'), sprint.name AS \"Sprint\", CAST(icsp.from_customer::json->>'total' AS INTEGER) FROM issue_capture_static_project icsp INNER JOIN sprint ON sprint.uuid = icsp.sprint INNER JOIN project ON project.uuid = sprint.project WHERE project.uuid = '$project' ORDER BY 2",
           "refId": "A",
           "select": [
             [

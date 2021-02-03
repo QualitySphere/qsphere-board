@@ -1,15 +1,6 @@
 FROM grafana/grafana:6.3.6
 LABEL maintainer=v.stone@163.com
 
-USER root
-RUN apt-get update \
-    && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y tzdata \
-    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo 'Asia/Shanghai' > /etc/timezone \
-    && apt-get clean
-
-USER grafana
 WORKDIR /etc/grafana/provisioning
 
 ENV GF_AUTH_PROXY_ENABLED=true \

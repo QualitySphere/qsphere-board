@@ -5,7 +5,7 @@ USER root
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y tzdata \
-    && /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone \
     && apt-get clean
 
